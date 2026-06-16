@@ -10,7 +10,7 @@
   },
   "scripts": {
     "lint": "eslint --ext .jsx,.js src",
-    "start": "react-scripts start",
+    "start": "REACT_APP_API_PORT=${REACT_APP_API_PORT:-3001} react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject"
   },
