@@ -24,7 +24,6 @@ import { API_BASE_URL } from '../../config'
 import './TodoLists.css'
 
 const getListStatus = (list) => {
-  console.log('getListStatus list:', list) // --- IGNORE ---
   const total = list.totalItems
   const done = list.doneItems
   if (total === 0) return null
@@ -33,7 +32,6 @@ const getListStatus = (list) => {
 }
 
 const getItemCounts = (list) => {
-  console.log('getItemCounts list:', list) // --- IGNORE ---
   const total = list.totalItems
   const done = list.doneItems
   return { done, total }
@@ -45,7 +43,6 @@ const fetchTodoLists = () => {
     .then((lists) => {
       const listsMap = {}
       lists.forEach((list) => {
-        console.log('fetchTodoLists list:', list)
         listsMap[list.id] = {
           id: list.id,
           title: list.title,
@@ -100,7 +97,6 @@ export const TodoLists = ({ style }) => {
       const response = await fetch(`${API_BASE_URL}/lists/${listId}`)
       if (!response.ok) throw new Error('Failed to fetch list details')
       const listDetails = await response.json()
-      console.log('Fetched list details:', listDetails)
       setActiveListDetails(listDetails)
     } catch (err) {
       console.error('Error fetching list details:', err)
@@ -113,7 +109,7 @@ export const TodoLists = ({ style }) => {
     if (!window.confirm('Are you sure you want to delete this list?')) return
 
     try {
-      const response = await fetch(`http://localhost:3001/api/todos/lists/${listId}`, {
+      const response = await fetch(`${API_BASE_URL}/lists/${listId}`, {
         method: 'DELETE',
       })
 
