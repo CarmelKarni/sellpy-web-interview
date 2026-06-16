@@ -11,5 +11,18 @@ module.exports = {
   globals: {
     Map: 'readonly',
   },
+  overrides: [
+    {
+      files: ['**/*.test.js'],
+      env: {
+        jest: true,
+      },
+      globals: {
+        describe: 'readonly',
+        it: 'readonly',
+        expect: 'readonly',
+      },
+    },
+  ],
   rules: {},
 }
