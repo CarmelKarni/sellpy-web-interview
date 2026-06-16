@@ -2,6 +2,12 @@ import express from 'express'
 
 const router = express.Router()
 
+const validateDueDate = (dueDate) => {
+  if (!dueDate) return true
+  const dateRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/
+  return dateRegex.test(dueDate)
+}
+
 // In-memory storage
 const todoLists = new Map()
 const todoItems = new Map()
@@ -115,13 +121,18 @@ router.post('/lists/:listId/items', (req, res) => {
     return res.status(404).json({ error: 'Todo list not found' })
   }
 
-  const { title } = req.body
+  const { title, dueDate } = req.body
+
+  if (dueDate && !validateDueDate(dueDate)) {
+    return res.status(400).json({ error: 'Invalid due date format. Use YYYY-MM-DDTHH:mm' })
+  }
 
   const id = itemIdCounter++
   const newItem = {
     id,
     listId: parseInt(req.params.listId),
     title,
+    dueDate: dueDate || null,
     status: 'TODO',
     createdAt: new Date(),
     updatedAt: new Date(),
@@ -178,7 +189,12 @@ router.put('/lists/:listId/items/:itemId', (req, res) => {
     return res.status(404).json({ error: 'Todo item not found' })
   }
 
-  const { title, status } = req.body
+  const { title, dueDate, status } = req.body
+
+  if (dueDate !== undefined && !validateDueDate(dueDate)) {
+    return res.status(400).json({ error: 'Invalid due date format. Use YYYY-MM-DDTHH:mm' })
+  }
+
   if (status !== undefined) {
     const validStatuses = ['TODO', 'DONE']
     if (!validStatuses.includes(status)) {
@@ -199,6 +215,7 @@ router.put('/lists/:listId/items/:itemId', (req, res) => {
   }
 
   if (title !== undefined) item.title = title
+  if (dueDate !== undefined) item.dueDate = dueDate
   item.updatedAt = new Date()
 
   res.json(item)
