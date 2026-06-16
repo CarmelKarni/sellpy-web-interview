@@ -503,5 +503,57 @@ describe('Todo Lists API', () => {
 
       expect(res.statusCode).toBe(404)
     })
+
+    it('should decrement doneItems when deleting a DONE item', async () => {
+      const listRes = await request(app)
+        .post('/api/todos/lists')
+        .send({ title: 'Test List' })
+
+      const listId = listRes.body.id
+
+      const itemRes = await request(app)
+        .post(`/api/todos/lists/${listId}/items`)
+        .send({ title: 'Item' })
+
+      const itemId = itemRes.body.id
+
+      await request(app)
+        .put(`/api/todos/lists/${listId}/items/${itemId}`)
+        .send({ status: 'DONE' })
+
+      const listBefore = await request(app).get(`/api/todos/lists/${listId}`)
+      expect(listBefore.body.doneItems).toBe(1)
+      expect(listBefore.body.totalItems).toBe(1)
+
+      await request(app).delete(`/api/todos/lists/${listId}/items/${itemId}`)
+
+      const listAfter = await request(app).get(`/api/todos/lists/${listId}`)
+      expect(listAfter.body.totalItems).toBe(0)
+      expect(listAfter.body.doneItems).toBe(0)
+    })
+
+    it('should not change doneItems when deleting a TODO item', async () => {
+      const listRes = await request(app)
+        .post('/api/todos/lists')
+        .send({ title: 'Test List' })
+
+      const listId = listRes.body.id
+
+      const itemRes = await request(app)
+        .post(`/api/todos/lists/${listId}/items`)
+        .send({ title: 'Item' })
+
+      const itemId = itemRes.body.id
+
+      const listBefore = await request(app).get(`/api/todos/lists/${listId}`)
+      expect(listBefore.body.doneItems).toBe(0)
+      expect(listBefore.body.totalItems).toBe(1)
+
+      await request(app).delete(`/api/todos/lists/${listId}/items/${itemId}`)
+
+      const listAfter = await request(app).get(`/api/todos/lists/${listId}`)
+      expect(listAfter.body.totalItems).toBe(0)
+      expect(listAfter.body.doneItems).toBe(0)
+    })
   })
 })
