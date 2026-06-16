@@ -28,7 +28,7 @@ const calculateRemainingTime = (dueDate) => {
 
 const formatRemainingTime = (remaining) => {
   if (!remaining) return ''
-  const { days, hours, minutes, isOverdue } = remaining
+  const { days, hours, minutes } = remaining
   return `${days}d ${hours}h ${minutes}m`
 }
 
@@ -159,7 +159,7 @@ export const TodoListForm = ({ todoList, saveTodoList, onItemsChange }) => {
         <Typography component='h2'>{todoList.title}</Typography>
         <Box sx={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
           {todos.map((item, index) => {
-            const remaining = calculateRemainingTime(item.dueDate)
+            const remaining = (item.dueDate)
             return (
               <Box key={item.id || index} className='todo-item'>
                 <Checkbox
