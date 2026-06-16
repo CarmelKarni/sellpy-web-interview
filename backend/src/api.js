@@ -115,7 +115,7 @@ router.post('/lists/:listId/items', (req, res) => {
     return res.status(404).json({ error: 'Todo list not found' })
   }
 
-  const { title, dueDate } = req.body
+  const { title } = req.body
 
   const id = itemIdCounter++
   const newItem = {
