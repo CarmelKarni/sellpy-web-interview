@@ -2,7 +2,7 @@
   "type": "module",
   "scripts": {
     "lint": "eslint --ext .js src",
-    "start": "node --watch src/index.js"
+    "start": "PORT=${PORT:-3001} node --watch src/index.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
