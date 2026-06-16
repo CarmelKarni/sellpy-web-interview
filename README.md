@@ -37,6 +37,11 @@ Fork the repository (see top-right button on GitHub) and clone the fork to your 
  - Navigate to the backend folder
  - Run `npm ci`
  - Run `npm start`
+ 
+ By default, the backend runs on port `3001`. To use a different port, set the `PORT` environment variable:
+ ```bash
+ PORT=3002 npm start
+ ```
 
 ### To start the frontend:
 
@@ -45,6 +50,13 @@ Fork the repository (see top-right button on GitHub) and clone the fork to your 
  - Run `npm start`
 
  A browsertab will automatically open and load the app.
+ 
+ By default, the frontend connects to the API on port `3001`. To use a different port, set the `REACT_APP_API_PORT` environment variable:
+ ```bash
+ REACT_APP_API_PORT=3002 npm start
+ ```
+ 
+ **Note:** Make sure the `REACT_APP_API_PORT` matches the port the backend is running on.
 
 ### Development set-up
 If you don't have a favorite editor we highly recommend [VSCode](https://code.visualstudio.com). We've also had some ESLint rules set up which will help you catch bugs etc. If you're using VSCode, install the regular [ESLint plugin](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) and you should be good to go!
