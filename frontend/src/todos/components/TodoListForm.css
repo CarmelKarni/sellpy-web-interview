@@ -1,0 +1,34 @@
+.todo-list-form {
+  margin: 0 1rem;
+  margin-top: 2rem;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.todo-item-number {
+  margin: 8px;
+  min-width: 24px;
+}
+
+.todo-item-input {
+  flex-grow: 1;
+  margin-top: 1rem;
+}
+
+.todo-item-input.completed input {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.todo-item-delete-btn {
+  margin: 8px;
+}
+
+.todo-actions {
+  margin-top: 1rem;
+}

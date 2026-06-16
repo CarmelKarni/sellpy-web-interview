@@ -1,0 +1,42 @@
+.todo-lists-container {
+  margin: 0;
+}
+
+.todo-lists-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.todo-list-item-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.todo-list-item-wrapper:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.todo-list-item-button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+}
+
+.todo-list-item-content {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.todo-list-delete-btn {
+  margin-right: 1rem;
+}
+
+.todo-list-status-chip {
+  margin-left: 2rem;
+}
