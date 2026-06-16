@@ -238,11 +238,9 @@ router.delete('/lists/:listId/items/:itemId', (req, res) => {
   list.itemIds = list.itemIds.filter((id) => id !== parseInt(req.params.itemId))
   list.totalItems = Math.max((list.totalItems || 0) - 1, 0)
   if (item.status === 'DONE') {
-    list.doneItems = (list.doneItems || 0) + 1
+    list.doneItems = (list.doneItems || 0) - 1
   }
-  else {
-    list.doneItems = Math.max((list.doneItems || 0) - 1, 0)
-  }
+  
   list.updatedAt = new Date()
   todoItems.delete(parseInt(req.params.itemId))
 
