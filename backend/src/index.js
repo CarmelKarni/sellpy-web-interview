@@ -9,8 +9,12 @@ app.use(express.json())
 
 app.use('/api/todos', todoApi)
 
-const PORT = process.env.PORT || 3001
-
 app.get('/', (req, res) => res.send('Hello World!'))
 
-app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`))
+const PORT = process.env.PORT || 3001
+
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`))
+}
+
+export default app
