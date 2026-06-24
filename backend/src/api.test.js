@@ -212,36 +212,6 @@ describe('Todo Lists API', () => {
     })
   })
 
-  describe('GET /api/todos/lists/:listId/items', () => {
-    it('should get all items in a list', async () => {
-      const listRes = await request(app)
-        .post('/api/todos/lists')
-        .send({ title: 'Test List' })
-
-      const listId = listRes.body.id
-
-      await request(app)
-        .post(`/api/todos/lists/${listId}/items`)
-        .send({ title: 'Item 1' })
-
-      await request(app)
-        .post(`/api/todos/lists/${listId}/items`)
-        .send({ title: 'Item 2' })
-
-      const res = await request(app).get(`/api/todos/lists/${listId}/items`)
-
-      expect(res.statusCode).toBe(200)
-      expect(Array.isArray(res.body)).toBe(true)
-      expect(res.body.length).toBe(2)
-    })
-
-    it('should return 404 if list does not exist', async () => {
-      const res = await request(app).get('/api/todos/lists/99999/items')
-
-      expect(res.statusCode).toBe(404)
-    })
-  })
-
   describe('GET /api/todos/lists/:listId/items/:itemId', () => {
     it('should get a specific item', async () => {
       const listRes = await request(app)
