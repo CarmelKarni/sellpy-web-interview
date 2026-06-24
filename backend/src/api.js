@@ -146,18 +146,6 @@ router.post('/lists/:listId/items', (req, res) => {
   res.status(201).json(newItem)
 })
 
-// Get all items in a list
-router.get('/lists/:listId/items', (req, res) => {
-  const list = todoLists.get(parseInt(req.params.listId))
-
-  if (!list) {
-    return res.status(404).json({ error: 'Todo list not found' })
-  }
-
-  const items = list.itemIds.map((itemId) => todoItems.get(itemId)).filter(Boolean)
-  res.json(items)
-})
-
 // Get a specific todo item
 router.get('/lists/:listId/items/:itemId', (req, res) => {
   const list = todoLists.get(parseInt(req.params.listId))
